@@ -1,11 +1,13 @@
 import pygame
 
-import program
+import parser
 
 
 def main():
 
     clock = pygame.time.Clock()
+
+    import program
 
     while program.program_window.running:
 
