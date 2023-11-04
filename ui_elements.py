@@ -57,6 +57,13 @@ class Element:
         self.width = self.texture.get_width()
         self.height = self.texture.get_height()
 
+    def rotate(self, angles):
+        self.texture = pygame.transform.rotate(self.texture, angles)
+
+        self.width = self.texture.get_width()
+        self.height = self.texture.get_height()
+
+
 
 class Text(Element):
 
@@ -71,15 +78,18 @@ class Text(Element):
 
     def change_texture(self, new_font, new_text, new_colour):
         super().change_texture(new_font.render(new_text, True, new_colour))
+        self.font = new_font
+        self.text = new_text
+        self.colour = new_colour
 
     def change_text(self, new_text):
         self.change_texture(self.font, new_text, self.colour)
+        self.text = new_text
 
     def reload(self):
         self.change_texture(self.font, self.text, self.colour)
 
     def push_right(self, offset):
-
         self.x_cord = self.surface.x_size - self.texture.get_width() - offset
 
 
@@ -94,7 +104,7 @@ class Button(Rect):
 
         self.type = "Button"
 
-        self.is_highlighted = True
+        self.is_highlighted = False
 
         self.needs_shift = needs_shift
 
@@ -121,3 +131,33 @@ class LabelledButton(Button):
     def center_text(self):
         self.label.x_cord = self.x_cord + (self.x_size - self.label.width)*0.5
         self.label.y_cord = self.y_cord + (self.y_size - self.label.height) * 0.5
+
+    def push_text_right(self):
+        self.label.x_cord = self.x_cord + self.x_size - self.label.width - 5
+
+
+class TextField(LabelledButton):
+    def __init__(self, surface, x_cord, y_cord, x_size, y_size, colour, text,  text_colour, text_font, max_length, needs_shift=False, is_visible=True):
+        super().__init__(surface, x_cord, y_cord, x_size, y_size, colour, 0, colour, text,  text_colour, text_font, needs_shift, is_visible)
+
+        self.type = "TextField"
+        self.max_length = max_length
+
+    def write(self, unicode, is_shifting):
+
+        if 700 >= unicode >= 32 and len(self.label.text) < self.max_length:
+            if is_shifting:
+                self.label.change_text(self.label.text + chr(unicode).upper())
+            else:
+                self.label.change_text(self.label.text + chr(unicode))
+
+        elif unicode == pygame.K_BACKSPACE:
+            if len(self.label.text):
+                txt_list = list(self.label.text)
+                txt_list.pop()
+                self.label.change_text(''.join(txt_list))
+            else:
+                self.label.change_text('')
+
+        elif unicode == pygame.K_RETURN or unicode == pygame.K_ESCAPE:
+            self.is_highlighted = False

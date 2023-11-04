@@ -32,13 +32,17 @@ class GraphingSurface(window.Surface):
         self.y_max = 100
         self.y_delimiter = (self.y_max - self.y_min) / 10
 
-        self.box_points = [(100, 50), (self.x_size-25, 50), (self.x_size-25, self.y_size-50), (100, self.y_size-50)]
+        self.box_points = [(150, 80), (self.x_size-25, 80), (self.x_size-25, self.y_size-100), (150, self.y_size-100)]
 
         self.x_pixel_size = self.box_points[1][0] - self.box_points[0][0]
         self.y_pixel_size = self.box_points[2][1] - self.box_points[0][1]
 
         self.x_pixel_delimiter = self.x_pixel_size / ((self.x_max - self.x_min) / self.x_delimiter)
         self.y_pixel_delimiter = self.y_pixel_size / ((self.y_max - self.y_min) / self.y_delimiter)
+
+        self.global_max = (0, 0)
+        self.global_max_rescaled = (0, 0)
+
 
     def draw(self):
 
@@ -63,10 +67,6 @@ class GraphingSurface(window.Surface):
         self.y_max = y_max
         self.y_delimiter = (self.y_max - self.y_min) / 10
 
-        print(self.y_delimiter)
-        print(self.y_min)
-        print(self.y_max)
-
         self.x_pixel_size = self.box_points[1][0] - self.box_points[0][0]
         self.y_pixel_size = self.box_points[2][1] - self.box_points[0][1]
 
@@ -85,14 +85,14 @@ class GraphingSurface(window.Surface):
         self.y_max = 100
         self.y_delimiter = (self.y_max - self.y_min) / 10
 
-        self.box_points = [(100, 50), (self.x_size - 25, 50), (self.x_size - 25, self.y_size - 50),
-                           (100, self.y_size - 50)]
-
         self.x_pixel_size = self.box_points[1][0] - self.box_points[0][0]
         self.y_pixel_size = self.box_points[2][1] - self.box_points[0][1]
 
         self.x_pixel_delimiter = self.x_pixel_size / ((self.x_max - self.x_min) / self.x_delimiter)
         self.y_pixel_delimiter = self.y_pixel_size / ((self.y_max - self.y_min) / self.y_delimiter)
+
+        self.global_max = (0, 0)
+        self.global_max_rescaled = (0, 0)
 
     def draw_axis(self):
 
@@ -126,20 +126,18 @@ class GraphingSurface(window.Surface):
 
         for point in self.points:
 
-            if point[0] > self.x_max or point[0] < self.x_min:
-                continue
-
-            if point[1] > self.y_max or point[1] < self.y_min:
-                continue
-
             rescaled_point_x = self.box_points[3][0] + ((point[0] - self.x_min) * self.x_pixel_delimiter / self.x_delimiter)
             rescaled_point_y = self.box_points[3][1] - ((point[1] - self.y_min) * self.y_pixel_delimiter / self.y_delimiter)
 
             rescaled_points.append((rescaled_point_x, rescaled_point_y))
 
+            if point == self.global_max:
+                self.global_max_rescaled = (rescaled_point_x, rescaled_point_y)
+
         if self.shows_points:
             for point in rescaled_points:
                 pygame.draw.circle(self.pg_surface, self.highlight_colour_2, point, 7)
+
 
         if len(rescaled_points) >= 2:
             pygame.draw.lines(self.pg_surface, self.line_colour, False, rescaled_points, self.line_width)
@@ -147,3 +145,6 @@ class GraphingSurface(window.Surface):
         if self.shows_points:
             for point in rescaled_points:
                 pygame.draw.circle(self.pg_surface, self.highlight_colour, point, 3)
+                if point == self.global_max_rescaled:
+                    pygame.draw.line(self.pg_surface, self.highlight_colour, point, (point[0], self.box_points[2][1]), 1)
+                    pygame.draw.line(self.pg_surface, self.highlight_colour, point, (self.box_points[0][0], point[1]), 1)

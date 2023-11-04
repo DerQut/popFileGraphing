@@ -82,6 +82,9 @@ class Window:
                         if element.type == "Button" or element.type == "LabelledButton":
                             if element.unicode_id == event.key and (self.is_shifting == element.needs_shift or element.needs_shift == 0.5):
                                 element.colour = element.secondary_colour
+                        elif element.type == "TextField":
+                            if element.is_highlighted:
+                                element.write(event.key, self.is_shifting)
 
             elif event.type == pygame.KEYUP:
 
@@ -115,10 +118,13 @@ class Window:
             for surface in self.surfaces:
                 for element in surface.elements:
 
-                    if element.type == "Button" or element.type == "LabelledButton":
+                    if element.type == "Button" or element.type == "LabelledButton" or element.type == "TextField":
                         if element.mouse_check(mouse_pos) and self.is_clicking:
-                            program.button_handler(element.unicode_id, element.needs_shift, element.needs_shift)
-                            element.colour = element.secondary_colour
+                            if element.type != "TextField":
+                                program.button_handler(element.unicode_id, element.needs_shift, element.needs_shift)
+                                element.colour = element.secondary_colour
+                            else:
+                                ...
 
     def mouse_button_up_handler(self, event):
         if event.button == 1:

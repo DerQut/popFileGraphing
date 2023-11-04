@@ -10,7 +10,9 @@ SF_Pro_Medium_18 = pygame.font.Font("assets/SFPRODISPLAYMEDIUM.OTF", 18)
 SF_Pro_Light_42 = pygame.font.Font("assets/SFNSDisplay-Thin.otf", 42)
 SF_Pro_Light_16 = pygame.font.Font("assets/SFNSDisplay-Thin.otf", 16)
 
-bg_colour = (43, 34, 34)
+bg_colour = (30, 30, 30)
+bg_colour_inactive = (40, 40, 40)
+bg_border = (24, 24, 24)
 
 button_colour_glowing = (150, 147, 147)
 button_colour_light = (102, 97, 97)
@@ -19,7 +21,7 @@ button_colour_dark = (68, 61, 61)
 orange = (247, 159, 13)
 dark_orange = (190, 106, 10)
 
-blue = (26, 116, 255)
-dark_blue = (20, 125, 191)
+blue = (24, 97, 181)
+dark_blue = (42, 58, 119)
 
 text_colour = (255, 255, 255)
