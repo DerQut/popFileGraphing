@@ -73,7 +73,7 @@ def get_points():
     x_min = math.floor(x_min)
     x_max = math.ceil(x_max)
     y_min = math.floor(y_min)
-    y_max = math.ceil(y_max)
+    y_max = math.ceil(y_max*1.1)
 
     graphing_layer.set_scale(x_min, x_max, y_min, y_max)
 
