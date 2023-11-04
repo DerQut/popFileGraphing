@@ -2,12 +2,14 @@ import math
 import time
 
 import parser
+import ui_elements
 import window
 import assets
 import graph
 
 import pygame
 from pygame.locals import *
+
 
 def minimalise(value):
     x = math.floor(value)
@@ -17,7 +19,7 @@ def minimalise(value):
         x = int(x/10)
         i=i+1
 
-    return x * 10**(i)
+    return x * 10**i
 
 
 def loop_action():
@@ -36,6 +38,8 @@ def button_handler(event_key, needs_shifting, is_shifting):
 def get_points():
 
     filename = parser.get_file()
+    if not filename:
+        return 1
 
     graphing_layer.clear()
 
@@ -92,9 +96,17 @@ def get_points():
     graphing_layer.set_scale(x_min, x_max, y_min, y_max)
 
 
-program_window = window.Window(1280, 720, DOUBLEBUF, assets.bg_colour, "The Graphing Engine")
+program_window = window.Window(1280, 720, DOUBLEBUF, assets.button_colour_dark, "The Graphing Engine")
 
-input_layer = window.Surface(program_window, 0, 0, 360, 720, (0, 0, 0))
 
-graphing_layer = graph.GraphingSurface(program_window, 360, 0, 920, 720, assets.bg_colour,
-                                       assets.text_colour, 2, assets.button_colour_light, assets.blue)
+input_layer = window.Surface(program_window, 0, 0, 360, 720, assets.bg_colour)
+
+graph_title_txt = ui_elements.Text(input_layer, 50, 50, assets.SF_Pro_Medium_20, "Graph title:", assets.text_colour)
+x_label_txt = ui_elements.Text(input_layer, 50, 100, assets.SF_Pro_Medium_20, "x label:", assets.text_colour)
+y_label_txt = ui_elements.Text(input_layer, 50, 150, assets.SF_Pro_Medium_20, "y label:", assets.text_colour)
+
+button_open = ui_elements.LabelledButton(input_layer, 15, 655, 150, 50, assets.blue, pygame.K_F1, assets.dark_blue, "Open", assets.text_colour, assets.SF_Pro_Medium_20, False)
+button_clear = ui_elements.LabelledButton(input_layer, 195, 655, 150, 50, assets.button_colour_light, pygame.K_ESCAPE, assets.button_colour_dark, "Clear", assets.text_colour, assets.SF_Pro_Medium_20, False)
+
+
+graphing_layer = graph.GraphingSurface(program_window, 360, 0, 920, 720, assets.bg_colour, assets.text_colour, 2, assets.button_colour_light, assets.blue)

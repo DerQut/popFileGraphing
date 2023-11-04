@@ -20,5 +20,6 @@ orange = (247, 159, 13)
 dark_orange = (190, 106, 10)
 
 blue = (26, 116, 255)
+dark_blue = (20, 125, 191)
 
 text_colour = (255, 255, 255)
