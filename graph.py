@@ -103,16 +103,22 @@ class GraphingSurface(window.Surface):
         while x <= self.x_pixel_size:
             pygame.draw.line(self.pg_surface, self.axis_colour, (self.box_points[3][0]+x, self.box_points[3][1]),
                              (self.box_points[3][0]+x, self.box_points[3][1]+10), 1)
-            self.pg_surface.blit(assets.SF_Pro_Light_16.render("{:.1f}".format(i), True, self.axis_colour),
-                                 (self.box_points[3][0]+x-8, self.box_points[3][1]+10))
+            if int(i) == i:
+                self.pg_surface.blit(assets.SF_Pro_Light_16.render(str(int(i)), True, self.axis_colour), (self.box_points[3][0]+x-4*len(str(int(i))), self.box_points[3][1]+10))
+            else:
+                self.pg_surface.blit(assets.SF_Pro_Light_16.render("{:.1f}".format(i), True, self.axis_colour), (self.box_points[3][0]+x-4*len(str(i)), self.box_points[3][1]+10))
             x = x + self.x_pixel_delimiter
             i = i + self.x_delimiter
 
         i = self.y_min
         y = self.y_pixel_size
         while y >= 0:
+            print(i)
             pygame.draw.line(self.pg_surface, self.axis_colour, (self.box_points[0][0], self.box_points[0][1]+y), (self.box_points[0][0]-10, self.box_points[0][1]+y), 1)
-            self.pg_surface.blit(assets.SF_Pro_Light_16.render("{:.1f}".format(i), True, self.axis_colour), (self.box_points[0][0]-60, self.box_points[0][1]+y-8))
+            if int(i) == i:
+                self.pg_surface.blit(assets.SF_Pro_Light_16.render(str(int(i)), True, self.axis_colour), (self.box_points[0][0]-16-8*len(str(int(i))), self.box_points[0][1]+y-8))
+            else:
+                self.pg_surface.blit(assets.SF_Pro_Light_16.render("{:.1f}".format(i), True, self.axis_colour), (self.box_points[0][0]-16-8*len("{:.1f}".format(i)), self.box_points[0][1] + y - 8))
             y = y - self.y_pixel_delimiter
             i = i + self.y_delimiter
 
