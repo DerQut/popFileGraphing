@@ -19,4 +19,6 @@ button_colour_dark = (68, 61, 61)
 orange = (247, 159, 13)
 dark_orange = (190, 106, 10)
 
+blue = (26, 116, 255)
+
 text_colour = (255, 255, 255)

@@ -138,7 +138,7 @@ class GraphingSurface(window.Surface):
                 pygame.draw.circle(self.pg_surface, self.highlight_colour_2, point, 7)
 
         if len(rescaled_points) >= 2:
-            pygame.draw.lines(self.pg_surface, self.line_colour, False, rescaled_points, 1)
+            pygame.draw.lines(self.pg_surface, self.line_colour, False, rescaled_points, self.line_width)
 
         if self.shows_points:
             for point in rescaled_points:

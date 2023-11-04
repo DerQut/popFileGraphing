@@ -9,9 +9,15 @@ import graph
 import pygame
 from pygame.locals import *
 
+def minimalise(value):
+    x = math.floor(value)
 
-def round(x):
-    return int(math.ceil(x/10**(len(str(abs(int(x)))))-1)) * 10**(len(str(abs(int(x))))-1)
+    i=0
+    while x > 10:
+        x = int(x/10)
+        i=i+1
+
+    return x * 10**(i)
 
 
 def loop_action():
@@ -73,7 +79,15 @@ def get_points():
     x_min = math.floor(x_min)
     x_max = math.ceil(x_max)
     y_min = math.floor(y_min)
-    y_max = math.ceil(y_max*1.1)
+    y_max = minimalise(y_max*1.1)
+
+    if y_min:
+        if y_max/y_min >= 500:
+            y_min = 0
+
+    if x_min:
+        if x_max/x_min >= 500:
+            x_min = 0
 
     graphing_layer.set_scale(x_min, x_max, y_min, y_max)
 
@@ -83,4 +97,4 @@ program_window = window.Window(1280, 720, DOUBLEBUF, assets.bg_colour, "The Grap
 input_layer = window.Surface(program_window, 0, 0, 360, 720, (0, 0, 0))
 
 graphing_layer = graph.GraphingSurface(program_window, 360, 0, 920, 720, assets.bg_colour,
-                                       assets.text_colour, 1, assets.button_colour_light, assets.orange)
+                                       assets.text_colour, 2, assets.button_colour_light, assets.blue)
