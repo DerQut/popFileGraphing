@@ -57,7 +57,7 @@ def button_handler(event_key, needs_shifting, is_shifting):
     if event_key == pygame.K_F1:
         get_points()
 
-    elif event_key == pygame.K_ESCAPE:
+    elif event_key == pygame.K_ESCAPE and is_shifting:
         graphing_layer.clear()
         x_label_field.label.change_text("x")
         y_label_field.label.change_text("y")
@@ -140,7 +140,7 @@ x_label_field = macos_ui.RoundedTextField(input_layer, 150, 100, 195, 25, assets
 y_label_field = macos_ui.RoundedTextField(input_layer, 150, 150, 195, 25, assets.text_colour, "y", (0, 0, 0), assets.SF_Pro_Light_16, 18, assets.blue)
 
 button_open = macos_ui.RoundedLabelledButton(input_layer, 15, 655, 150, 50, assets.blue, pygame.K_F1, assets.dark_blue, "Open", assets.text_colour, assets.SF_Pro_Medium_20, assets.dark_blue)
-button_clear = macos_ui.RoundedLabelledButton(input_layer, 195, 655, 150, 50, assets.button_colour_light, pygame.K_ESCAPE, assets.button_colour_dark, "Clear", assets.text_colour, assets.SF_Pro_Medium_20, assets.button_colour_dark)
+button_clear = macos_ui.RoundedLabelledButton(input_layer, 195, 655, 150, 50, assets.button_colour_light, pygame.K_ESCAPE, assets.button_colour_dark, "Clear", assets.text_colour, assets.SF_Pro_Medium_20, assets.button_colour_dark, needs_shift=True)
 
 
 graphing_layer = graph.GraphingSurface(program_window, 362, 0, 920, 720, assets.bg_colour, assets.text_colour, 2, assets.button_colour_light, assets.blue)
@@ -149,4 +149,4 @@ graph_title_label = ui_elements.LabelledButton(graphing_layer, graphing_layer.bo
 x_axis_label = ui_elements.LabelledButton(graphing_layer, graphing_layer.box_points[3][0], graphing_layer.box_points[3][1]+35, graphing_layer.box_points[1][0]-graphing_layer.box_points[0][0], 20, graphing_layer.colour, 0, graphing_layer.colour, x_label_field.label.text, assets.text_colour, assets.SF_Pro_Medium_24, 0.5)
 y_axis_label = ui_elements.Text(graphing_layer, graphing_layer.box_points[0][0]-135, graphing_layer.box_points[0][1], assets.SF_Pro_Medium_24, y_label_field.label.text, assets.text_colour)
 
-global_max_plate = macos_ui.RoundedLabelledButton(graphing_layer, graphing_layer.box_points[2][0]-210, graphing_layer.box_points[1][1]+11, 200, 50, assets.bg_colour_inactive, 0, assets.bg_colour_inactive, "Max: (" + "{:.1f}".format(graphing_layer.global_max[0]) + ", " + "{:.1f}".format(graphing_layer.global_max[1]) + ")", assets.text_colour, assets.SF_Pro_Medium_18, assets.bg_border, 2, 7, False)
+global_max_plate = macos_ui.RoundedLabelledButton(graphing_layer, graphing_layer.box_points[2][0]-210, graphing_layer.box_points[1][1]+11, 200, 50, assets.bg_colour_inactive, 0, assets.bg_colour_inactive, "Max: (" + "{:.1f}".format(graphing_layer.global_max[0]) + ", " + "{:.1f}".format(graphing_layer.global_max[1]) + ")", assets.text_colour, assets.SF_Pro_Medium_18, assets.bg_border, False, 2, 7, False)

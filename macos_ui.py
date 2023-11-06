@@ -5,8 +5,8 @@ import ui_elements
 
 class RoundedLabelledButton(ui_elements.LabelledButton):
 
-    def __init__(self, surface, x_cord, y_cord, x_size, y_size, colour, unicode_id, secondary_colour, text,  text_colour, text_font, border_colour, border_thickness=2, circle_radius=7, is_visible=True):
-        super().__init__(surface, x_cord, y_cord, x_size, y_size, colour, unicode_id, secondary_colour, text,  text_colour, text_font, 0.5, is_visible)
+    def __init__(self, surface, x_cord, y_cord, x_size, y_size, colour, unicode_id, secondary_colour, text,  text_colour, text_font, border_colour, needs_shift=0.5, border_thickness=2, circle_radius=7, is_visible=True):
+        super().__init__(surface, x_cord, y_cord, x_size, y_size, colour, unicode_id, secondary_colour, text,  text_colour, text_font, needs_shift, is_visible)
 
         self.circle_radius = circle_radius
 
