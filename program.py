@@ -118,6 +118,11 @@ def get_points():
     y_min = minn(y_min)
     y_max = maxx(y_max)
 
+    if y_min:
+        if y_max / y_min >= 1000:
+            y_min = 0
+            print("set")
+
     graphing_layer.set_scale(x_min, x_max, y_min, y_max)
 
 
