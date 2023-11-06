@@ -12,3 +12,19 @@ def get_file():
     )
 
     return filename
+
+
+def get_name(filename):
+
+    filename_list = list(filename)
+    new_list = []
+
+    while len(filename_list):
+        character = filename_list.pop()
+        if character != "/" and character != "\\":
+            new_list.append(character)
+        else:
+            break
+
+    new_list.reverse()
+    return ''.join(new_list)

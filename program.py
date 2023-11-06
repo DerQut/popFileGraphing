@@ -75,6 +75,9 @@ def get_points():
     if not filename:
         return 1
 
+    real_name = parser.get_name(filename)
+    print(filename)
+
     graphing_layer.clear()
 
     file = open(filename, "r")
@@ -117,6 +120,8 @@ def get_points():
     x_max = math.ceil(x_max)
     y_min = minn(y_min)
     y_max = maxx(y_max)
+
+    graph_title_field.label.change_text(real_name)
 
     if y_min:
         if y_max / y_min >= 1000:
