@@ -1,7 +1,5 @@
 import pygame
 
-import parser
-
 
 def main():
 

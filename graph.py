@@ -1,6 +1,3 @@
-import math
-
-import numpy
 import pygame
 
 import window
@@ -42,7 +39,6 @@ class GraphingSurface(window.Surface):
 
         self.global_max = (0, 0)
         self.global_max_rescaled = (0, 0)
-
 
     def draw(self):
 
@@ -137,7 +133,6 @@ class GraphingSurface(window.Surface):
         if self.shows_points:
             for point in rescaled_points:
                 pygame.draw.circle(self.pg_surface, self.highlight_colour_2, point, 7)
-
 
         if len(rescaled_points) >= 2:
             pygame.draw.lines(self.pg_surface, self.line_colour, False, rescaled_points, self.line_width)

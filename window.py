@@ -1,5 +1,4 @@
 import pygame
-from pygame.locals import *
 
 import program
 
@@ -33,7 +32,6 @@ class Surface:
                 element.draw()
 
         self.window.screen.blit(self.pg_surface, (self.x_cord, self.y_cord))
-
 
 
 class Window:
@@ -135,5 +133,3 @@ class Window:
 
                     if element.type == "Button" or element.type == "LabelledButton":
                         element.colour = element.main_colour
-
-

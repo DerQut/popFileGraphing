@@ -1,5 +1,4 @@
 import math
-import time
 
 import parser
 import ui_elements
@@ -15,10 +14,10 @@ from pygame.locals import *
 def maxx(value):
     x = math.ceil(value)
 
-    i=0
+    i = 0
     while x > 10:
         x = math.ceil(x/10)
-        i=i+1
+        i = i + 1
 
     return x * 10**i
 
@@ -26,12 +25,13 @@ def maxx(value):
 def minn(value):
     x = math.floor(value)
 
-    i=0
+    i = 0
     while x > 10:
         x = math.floor(x/10)
-        i=i+1
+        i = i + 1
 
-    return x * 10 **i
+    return x * 10 ** i
+
 
 def loop_action():
     graphing_layer.draw()
