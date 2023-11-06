@@ -92,7 +92,7 @@ class GraphingSurface(window.Surface):
 
     def draw_axis(self):
 
-        pygame.draw.rect(self.pg_surface, self.axis_colour, self.box, 1)
+        pygame.draw.lines(self.pg_surface, self.axis_colour, True, (self.box.topleft, self.box.topright, self.box.bottomright, self.box.bottomleft))
 
         i = self.x_min
         x = 0

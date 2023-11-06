@@ -44,7 +44,7 @@ def loop_action():
 
     y_axis_label.change_text(y_label_field.label.text)
     y_axis_label.rotate(90)
-    y_axis_label.y_cord = graphing_layer.box_points[0][1] + (graphing_layer.box_points[2][1] - y_axis_label.height)/2
+    y_axis_label.y_cord = graphing_layer.box.top + (graphing_layer.box.bottom - y_axis_label.height)/2
 
     graph_title_label.label.change_text(graph_title_field.label.text)
     graph_title_label.center_text()
@@ -150,8 +150,8 @@ button_clear = macos_ui.RoundedLabelledButton(input_layer, 195, 655, 150, 50, as
 
 graphing_layer = graph.GraphingSurface(program_window, 362, 0, 920, 720, assets.bg_colour, assets.text_colour, 2, assets.button_colour_light, assets.blue)
 
-graph_title_label = ui_elements.LabelledButton(graphing_layer, graphing_layer.box_points[3][0], graphing_layer.box_points[0][1]-35, graphing_layer.box_points[1][0]-graphing_layer.box_points[0][0], 20, graphing_layer.colour, 0, graphing_layer.colour, graph_title_field.label.text, assets.text_colour, assets.SF_Pro_Medium_24, 0.5)
-x_axis_label = ui_elements.LabelledButton(graphing_layer, graphing_layer.box_points[3][0], graphing_layer.box_points[3][1]+35, graphing_layer.box_points[1][0]-graphing_layer.box_points[0][0], 20, graphing_layer.colour, 0, graphing_layer.colour, x_label_field.label.text, assets.text_colour, assets.SF_Pro_Medium_24, 0.5)
-y_axis_label = ui_elements.Text(graphing_layer, graphing_layer.box_points[0][0]-135, graphing_layer.box_points[0][1], assets.SF_Pro_Medium_24, y_label_field.label.text, assets.text_colour)
+graph_title_label = ui_elements.LabelledButton(graphing_layer, graphing_layer.box.left, graphing_layer.box.top-35, graphing_layer.box.right-graphing_layer.box.left, 20, graphing_layer.colour, 0, graphing_layer.colour, graph_title_field.label.text, assets.text_colour, assets.SF_Pro_Medium_24, 0.5)
+x_axis_label = ui_elements.LabelledButton(graphing_layer, graphing_layer.box.left, graphing_layer.box.bottom+35, graphing_layer.box.right-graphing_layer.box.left, 20, graphing_layer.colour, 0, graphing_layer.colour, x_label_field.label.text, assets.text_colour, assets.SF_Pro_Medium_24, 0.5)
+y_axis_label = ui_elements.Text(graphing_layer, graphing_layer.box.left-135, graphing_layer.box.top, assets.SF_Pro_Medium_24, y_label_field.label.text, assets.text_colour)
 
-global_max_plate = macos_ui.RoundedLabelledButton(graphing_layer, graphing_layer.box_points[2][0]-210, graphing_layer.box_points[1][1]+11, 200, 50, assets.bg_colour_inactive, 0, assets.bg_colour_inactive, "Max: (" + "{:.1f}".format(graphing_layer.global_max[0]) + ", " + "{:.1f}".format(graphing_layer.global_max[1]) + ")", assets.text_colour, assets.SF_Pro_Medium_18, assets.bg_border, False, 2, 7, False)
+global_max_plate = macos_ui.RoundedLabelledButton(graphing_layer, graphing_layer.box.right-210, graphing_layer.box.top+11, 200, 50, assets.bg_colour_inactive, 0, assets.bg_colour_inactive, "Max: (" + "{:.1f}".format(graphing_layer.global_max[0]) + ", " + "{:.1f}".format(graphing_layer.global_max[1]) + ")", assets.text_colour, assets.SF_Pro_Medium_18, assets.bg_border, False, 2, 7, False)
