@@ -40,8 +40,8 @@ class RoundedLabelledButton(ui_elements.LabelledButton):
 
 class RoundedTextField(ui_elements.TextField):
 
-    def __init__(self, surface, x_cord, y_cord, x_size, y_size, colour, text,  text_colour, text_font, max_length, highlight_colour, highlight_width=4, circle_radius=7, needs_shift=False, is_visible=True):
-        super().__init__(surface, x_cord, y_cord, x_size, y_size, colour, text,  text_colour, text_font, max_length, needs_shift, is_visible)
+    def __init__(self, surface, x_cord, y_cord, x_size, y_size, colour, text,  text_colour, text_font, max_length, highlight_colour, unicode_range=[], additional_characters=[], return_characters=[pygame.K_RETURN, pygame.K_ESCAPE], backspace_characters=[pygame.K_BACKSPACE], is_numerical=False, highlight_width=4, circle_radius=7, needs_shift=False, is_visible=True):
+        super().__init__(surface, x_cord, y_cord, x_size, y_size, colour, text,  text_colour, text_font, max_length, unicode_range, additional_characters, return_characters, backspace_characters, is_numerical, needs_shift, is_visible)
 
         self.circle_radius = circle_radius
         self.highlight_colour = highlight_colour

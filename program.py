@@ -39,6 +39,11 @@ def loop_action():
     x_label_field.push_text_right()
     y_label_field.push_text_right()
 
+    x_range_min_field.push_text_right()
+    x_range_max_field.push_text_right()
+    y_range_min_field.push_text_right()
+    y_range_max_field.push_text_right()
+
     x_axis_label.label.change_text(x_label_field.label.text)
     x_axis_label.center_text()
 
@@ -52,6 +57,13 @@ def loop_action():
     global_max_plate.label.change_text("Max: (" + "{:.1f}".format(graphing_layer.global_max[0]) + ", " + "{:.1f}".format(graphing_layer.global_max[1]) + ")")
     global_max_plate.center_text()
 
+    x_max = float(x_range_max_field.label.text)
+    x_min = float(x_range_min_field.label.text)
+    y_max = float(y_range_max_field.label.text)
+    y_min = float(y_range_min_field.label.text)
+
+    graphing_layer.set_scale(x_min, x_max, y_min, y_max)
+
 
 def button_handler(event_key, needs_shifting, is_shifting):
     if event_key == pygame.K_F1:
@@ -62,6 +74,14 @@ def button_handler(event_key, needs_shifting, is_shifting):
         x_label_field.label.change_text("x")
         y_label_field.label.change_text("y")
         graph_title_field.label.change_text("Title")
+        x_range_min_field.label.change_text("0")
+        x_range_max_field.label.change_text("100")
+        y_range_min_field.label.change_text("0")
+        y_range_max_field.label.change_text("100")
+        x_range_min_field.has_comma = False
+        x_range_max_field.has_comma = False
+        y_range_min_field.has_comma = False
+        y_range_max_field.has_comma = False
 
     elif event_key == pygame.K_F2:
         graphing_layer.shows_points = not graphing_layer.shows_points
@@ -128,6 +148,11 @@ def get_points():
             y_min = 0
             print("set")
 
+    x_range_max_field.label.change_text(str(x_max))
+    x_range_min_field.label.change_text(str(x_min))
+    y_range_max_field.label.change_text(str(y_max))
+    y_range_min_field.label.change_text(str(y_min))
+
     graphing_layer.set_scale(x_min, x_max, y_min, y_max)
 
 
@@ -140,9 +165,19 @@ graph_title_txt = ui_elements.Text(input_layer, 15, 50, assets.SF_Pro_Medium_20,
 x_label_txt = ui_elements.Text(input_layer, 15, 100, assets.SF_Pro_Medium_20, "x label:", assets.text_colour)
 y_label_txt = ui_elements.Text(input_layer, 15, 150, assets.SF_Pro_Medium_20, "y label:", assets.text_colour)
 
-graph_title_field = macos_ui.RoundedTextField(input_layer, 150, 50, 195, 25, assets.text_colour, "Title", (0, 0, 0), assets.SF_Pro_Light_16, 18, assets.blue)
-x_label_field = macos_ui.RoundedTextField(input_layer, 150, 100, 195, 25, assets.text_colour, "x", (0, 0, 0), assets.SF_Pro_Light_16, 18, assets.blue)
-y_label_field = macos_ui.RoundedTextField(input_layer, 150, 150, 195, 25, assets.text_colour, "y", (0, 0, 0), assets.SF_Pro_Light_16, 18, assets.blue)
+graph_title_field = macos_ui.RoundedTextField(input_layer, 150, 50, 195, 25, assets.text_colour, "Title", (0, 0, 0), assets.SF_Pro_Light_16, 18, assets.blue, [32, 700])
+x_label_field = macos_ui.RoundedTextField(input_layer, 150, 100, 195, 25, assets.text_colour, "x", (0, 0, 0), assets.SF_Pro_Light_16, 18, assets.blue, [32, 700])
+y_label_field = macos_ui.RoundedTextField(input_layer, 150, 150, 195, 25, assets.text_colour, "y", (0, 0, 0), assets.SF_Pro_Light_16, 18, assets.blue, [32, 700])
+
+x_range_min_txt = ui_elements.Text(input_layer, 15, 200, assets.SF_Pro_Medium_20, "x range (min):", assets.text_colour)
+x_range_max_txt = ui_elements.Text(input_layer, 15, 250, assets.SF_Pro_Medium_20, "x range (max):", assets.text_colour)
+y_range_min_txt = ui_elements.Text(input_layer, 15, 300, assets.SF_Pro_Medium_20, "y range (min):", assets.text_colour)
+y_range_max_txt = ui_elements.Text(input_layer, 15, 350, assets.SF_Pro_Medium_20, "y range (max):", assets.text_colour)
+
+x_range_min_field = macos_ui.RoundedTextField(input_layer, 150, 200, 195, 25, assets.text_colour, "0", (0, 0, 0), assets.SF_Pro_Light_16, 18, assets.blue, [48, 57], [pygame.K_PERIOD], is_numerical=True)
+x_range_max_field = macos_ui.RoundedTextField(input_layer, 150, 250, 195, 25, assets.text_colour, "100", (0, 0, 0), assets.SF_Pro_Light_16, 18, assets.blue, [48, 57], [pygame.K_PERIOD], is_numerical=True)
+y_range_min_field = macos_ui.RoundedTextField(input_layer, 150, 300, 195, 25, assets.text_colour, "0", (0, 0, 0), assets.SF_Pro_Light_16, 18, assets.blue, [48, 57], [pygame.K_PERIOD], is_numerical=True)
+y_range_max_field = macos_ui.RoundedTextField(input_layer, 150, 350, 195, 25, assets.text_colour, "100", (0, 0, 0), assets.SF_Pro_Light_16, 18, assets.blue, [48, 57], [pygame.K_PERIOD], is_numerical=True)
 
 button_open = macos_ui.RoundedLabelledButton(input_layer, 15, 655, 150, 50, assets.blue, pygame.K_F1, assets.dark_blue, "Open", assets.text_colour, assets.SF_Pro_Medium_20, assets.dark_blue)
 button_clear = macos_ui.RoundedLabelledButton(input_layer, 195, 655, 150, 50, assets.button_colour_light, pygame.K_ESCAPE, assets.button_colour_dark, "Clear", assets.text_colour, assets.SF_Pro_Medium_20, assets.button_colour_dark, needs_shift=True)

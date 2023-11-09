@@ -137,27 +137,64 @@ class LabelledButton(Button):
 
 
 class TextField(LabelledButton):
-    def __init__(self, surface, x_cord, y_cord, x_size, y_size, colour, text,  text_colour, text_font, max_length, needs_shift=False, is_visible=True):
+    def __init__(self, surface, x_cord, y_cord, x_size, y_size, colour, text,  text_colour, text_font, max_length, unicode_range=[], additional_characters=[], return_characters=[pygame.K_RETURN, pygame.K_ESCAPE], backspace_characters=[pygame.K_BACKSPACE], is_numerical=False, needs_shift=False, is_visible=True):
         super().__init__(surface, x_cord, y_cord, x_size, y_size, colour, 0, colour, text,  text_colour, text_font, needs_shift, is_visible)
 
         self.type = "TextField"
         self.max_length = max_length
 
+        self.unicode_range = unicode_range
+        self.additional_characters = additional_characters
+
+        self.return_characters = return_characters
+        self.backspace_characters = backspace_characters
+
+        self.is_numerical = is_numerical
+        self.has_comma = False
+
     def write(self, unicode, is_shifting):
 
-        if 700 >= unicode >= 32 and len(self.label.text) < self.max_length:
-            if is_shifting:
-                self.label.change_text(self.label.text + chr(unicode).upper())
-            else:
-                self.label.change_text(self.label.text + chr(unicode))
+        if unicode == pygame.K_PERIOD and self.is_numerical and self.has_comma:
+            return 1
 
-        elif unicode == pygame.K_BACKSPACE:
-            if len(self.label.text):
-                txt_list = list(self.label.text)
-                txt_list.pop()
-                self.label.change_text(''.join(txt_list))
-            else:
-                self.label.change_text('')
+        if unicode == pygame.K_PERIOD:
+            print("YES")
+            self.has_comma = True
 
-        elif unicode == pygame.K_RETURN or unicode == pygame.K_ESCAPE:
-            self.is_highlighted = False
+        if len(self.label.text) < self.max_length:
+
+            if self.unicode_range[1] >= unicode >= self.unicode_range[0]:
+                if not self.is_numerical:
+                    if is_shifting:
+                        self.label.change_text(self.label.text + chr(unicode).upper())
+                    else:
+                        self.label.change_text(self.label.text + chr(unicode))
+                else:
+                    if self.label.text == "0":
+                        if unicode != pygame.K_PERIOD:
+                            self.label.change_text(chr(unicode))
+                    else:
+                        self.label.change_text(self.label.text + chr(unicode))
+
+            else:
+                for character in self.additional_characters:
+                    if character == unicode:
+                        self.label.change_text(self.label.text + chr(unicode))
+
+        for character in self.backspace_characters:
+            if unicode == character:
+                if len(self.label.text):
+                    txt_list = list(self.label.text)
+                    char = txt_list.pop()
+                    if char == pygame.K_PERIOD:
+                        self.has_comma = False
+                    self.label.change_text(''.join(txt_list))
+                if not len(self.label.text):
+                    if not self.is_numerical:
+                        self.label.change_text('')
+                    else:
+                        self.label.change_text("0")
+
+        for character in self.return_characters:
+            if unicode == character:
+                self.is_highlighted = False

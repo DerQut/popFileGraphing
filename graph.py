@@ -55,6 +55,10 @@ class GraphingSurface(window.Surface):
         self.window.screen.blit(self.pg_surface, (self.x_cord, self.y_cord))
 
     def set_scale(self, x_min, x_max, y_min, y_max):
+
+        if x_min >= x_max or y_min >= y_max:
+            return 1
+
         self.x_min = x_min
         self.x_max = x_max
         self.x_delimiter = (self.x_max - self.x_min) / 10
