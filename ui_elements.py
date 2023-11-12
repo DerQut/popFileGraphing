@@ -158,7 +158,6 @@ class TextField(LabelledButton):
             return 1
 
         if unicode == pygame.K_PERIOD:
-            print("YES")
             self.has_comma = True
 
         if len(self.label.text) < self.max_length:
@@ -186,7 +185,7 @@ class TextField(LabelledButton):
                 if len(self.label.text):
                     txt_list = list(self.label.text)
                     char = txt_list.pop()
-                    if char == pygame.K_PERIOD:
+                    if char == chr(pygame.K_PERIOD):
                         self.has_comma = False
                     self.label.change_text(''.join(txt_list))
                 if not len(self.label.text):

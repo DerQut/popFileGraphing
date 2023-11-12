@@ -57,6 +57,9 @@ def loop_action():
     global_max_plate.label.change_text("Max: (" + "{:.1f}".format(graphing_layer.global_max[0]) + ", " + "{:.1f}".format(graphing_layer.global_max[1]) + ")")
     global_max_plate.center_text()
 
+    fwhm_plate.label.change_text("FWHM: " + "{:.2f}".format(graphing_layer.fwhm))
+    fwhm_plate.center_text()
+
     x_max = float(x_range_max_field.label.text)
     x_min = float(x_range_min_field.label.text)
     y_max = float(y_range_max_field.label.text)
@@ -88,6 +91,11 @@ def button_handler(event_key, needs_shifting, is_shifting):
         global_max_plate.is_visible = not global_max_plate.is_visible
         global_max_plate.label.is_visible = not global_max_plate.label.is_visible
 
+    elif event_key == pygame.K_F3:
+        graphing_layer.shows_fwhm = not graphing_layer.shows_fwhm
+        fwhm_plate.is_visible = not fwhm_plate.is_visible
+        fwhm_plate.label.is_visible = not fwhm_plate.label.is_visible
+
 
 def get_points():
 
@@ -96,7 +104,6 @@ def get_points():
         return 1
 
     real_name = parser.get_name(filename)
-    print(filename)
 
     graphing_layer.clear()
 
@@ -146,7 +153,6 @@ def get_points():
     if y_min:
         if y_max / y_min >= 1000:
             y_min = 0
-            print("set")
 
     x_range_max_field.label.change_text(str(x_max))
     x_range_min_field.label.change_text(str(x_min))
@@ -190,3 +196,5 @@ x_axis_label = ui_elements.LabelledButton(graphing_layer, graphing_layer.box.lef
 y_axis_label = ui_elements.Text(graphing_layer, graphing_layer.box.left-135, graphing_layer.box.top, assets.SF_Pro_Medium_24, y_label_field.label.text, assets.text_colour)
 
 global_max_plate = macos_ui.RoundedLabelledButton(graphing_layer, graphing_layer.box.right-210, graphing_layer.box.top+11, 200, 50, assets.bg_colour_inactive, 0, assets.bg_colour_inactive, "Max: (" + "{:.1f}".format(graphing_layer.global_max[0]) + ", " + "{:.1f}".format(graphing_layer.global_max[1]) + ")", assets.text_colour, assets.SF_Pro_Medium_18, assets.bg_border, False, 2, 7, False)
+
+fwhm_plate = macos_ui.RoundedLabelledButton(graphing_layer, graphing_layer.box.right-210, graphing_layer.box.top+72, 200, 50, assets.bg_colour_inactive, 0, assets.bg_colour_inactive, "FWHM: " + "{:.2f}".format(graphing_layer.fwhm), assets.text_colour, assets.SF_Pro_Medium_18, assets.bg_border, False, 2, 7, False)
