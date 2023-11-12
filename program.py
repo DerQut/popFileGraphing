@@ -162,7 +162,7 @@ def get_points():
     graphing_layer.set_scale(x_min, x_max, y_min, y_max)
 
 
-program_window = window.Window(1280, 720, DOUBLEBUF, assets.bg_border, "The Graphing Engine")
+program_window = window.Window(1280, 720, DOUBLEBUF, assets.bg_colour, "The Graphing Engine")
 
 
 input_layer = window.Surface(program_window, 0, 0, 360, 720, assets.bg_colour_inactive)
@@ -190,6 +190,8 @@ button_clear = macos_ui.RoundedLabelledButton(input_layer, 195, 655, 150, 50, as
 
 
 graphing_layer = graph.GraphingSurface(program_window, 362, 0, 920, 720, assets.bg_colour, assets.text_colour, 2, assets.button_colour_light, assets.blue)
+
+border = ui_elements.Rect(graphing_layer, 0, 0, 1, 720, assets.bg_border)
 
 graph_title_label = ui_elements.LabelledButton(graphing_layer, graphing_layer.box.left, graphing_layer.box.top-35, graphing_layer.box.right-graphing_layer.box.left, 20, graphing_layer.colour, 0, graphing_layer.colour, graph_title_field.label.text, assets.text_colour, assets.SF_Pro_Medium_24, 0.5)
 x_axis_label = ui_elements.LabelledButton(graphing_layer, graphing_layer.box.left, graphing_layer.box.bottom+35, graphing_layer.box.right-graphing_layer.box.left, 20, graphing_layer.colour, 0, graphing_layer.colour, x_label_field.label.text, assets.text_colour, assets.SF_Pro_Medium_24, 0.5)
