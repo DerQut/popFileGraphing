@@ -189,14 +189,16 @@ class GraphingSurface(window.Surface):
         a = max_index
         while a < len(self.points):
             if self.points[a][1] > y > self.points[a+1][1]:
-                x1 = self.points[a][0] + abs(0.5*(self.points[a+1][0] - self.points[a][0]))
+                y_ratio = (y - self.points[a][1])/(self.points[a+1][1] - self.points[a][1])
+                x1 = self.points[a][0] + abs(y_ratio*(self.points[a+1][0] - self.points[a][0]))
                 break
             a = a + 1
 
         a = max_index
         while a > 0:
             if self.points[a][1] > y > self.points[a-1][1]:
-                x2 = self.points[a][0] - abs(0.5*(self.points[a-1][0] - self.points[a][0]))
+                y_ratio = (y - self.points[a-1][1])/(self.points[a][1] - self.points[a-1][1])
+                x2 = self.points[a][0] - abs(y_ratio*(self.points[a-1][0] - self.points[a][0]))
                 break
             a = a - 1
 
