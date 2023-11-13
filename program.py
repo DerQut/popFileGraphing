@@ -57,7 +57,7 @@ def loop_action():
     global_max_plate.label.change_text("Max: (" + "{:.1f}".format(graphing_layer.global_max[0]) + ", " + "{:.1f}".format(graphing_layer.global_max[1]) + ")")
     global_max_plate.center_text()
 
-    fwhm_plate.label.change_text("FWHM: " + "{:.2f}".format(graphing_layer.fwhm))
+    fwhm_plate.label.change_text("FWHM: " + "{:.3f}".format(graphing_layer.fwhm))
     fwhm_plate.center_text()
 
     x_max = float(x_range_max_field.label.text)
@@ -199,4 +199,4 @@ y_axis_label = ui_elements.Text(graphing_layer, graphing_layer.box.left-135, gra
 
 global_max_plate = macos_ui.RoundedLabelledButton(graphing_layer, graphing_layer.box.right-210, graphing_layer.box.top+11, 200, 50, assets.bg_colour_inactive, 0, assets.bg_colour_inactive, "Max: (" + "{:.1f}".format(graphing_layer.global_max[0]) + ", " + "{:.1f}".format(graphing_layer.global_max[1]) + ")", assets.text_colour, assets.SF_Pro_Medium_18, assets.bg_border, False, 2, 7, False)
 
-fwhm_plate = macos_ui.RoundedLabelledButton(graphing_layer, graphing_layer.box.right-210, graphing_layer.box.top+72, 200, 50, assets.bg_colour_inactive, 0, assets.bg_colour_inactive, "FWHM: " + "{:.2f}".format(graphing_layer.fwhm), assets.text_colour, assets.SF_Pro_Medium_18, assets.bg_border, False, 2, 7, False)
+fwhm_plate = macos_ui.RoundedLabelledButton(graphing_layer, graphing_layer.box.right-210, graphing_layer.box.top+72, 200, 50, assets.bg_colour_inactive, 0, assets.bg_colour_inactive, "FWHM: " + "{:.3f}".format(graphing_layer.fwhm), assets.text_colour, assets.SF_Pro_Medium_18, assets.bg_border, False, 2, 7, False)

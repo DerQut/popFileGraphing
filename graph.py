@@ -49,6 +49,9 @@ class GraphingSurface(window.Surface):
 
         self.pg_surface.fill(self.colour)
 
+        if self.shows_fwhm and len(self.points) > 2:
+            self.draw_fwhm()
+
         self.draw_points()
 
         self.draw_axis()
@@ -56,9 +59,6 @@ class GraphingSurface(window.Surface):
         for element in self.elements:
             if element.is_visible:
                 element.draw()
-
-        if self.shows_fwhm and len(self.points) > 2:
-            self.draw_fwhm()
 
         self.window.screen.blit(self.pg_surface, (self.x_cord, self.y_cord))
 
